@@ -5,7 +5,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return "Laravel IoT App Berhasil!";
+    return redirect('/login');
 });
 
 // dashboard pakai controller
