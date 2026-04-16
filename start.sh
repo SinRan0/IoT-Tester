@@ -16,7 +16,7 @@ php artisan route:cache
 
 # Run migration (safe mode)
 echo "🗄️ Running migrations..."
-php artisan migrate --force
+php artisan migrate:fresh --force
 
 echo "✅ Setup completed"
 
