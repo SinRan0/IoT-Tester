@@ -39,12 +39,10 @@ public function store(Request $request)
 public function getCommand($device_id)
 {
     try {
-    $cmd = Command::where('device_id', $device_id)
-    ->where('status', 'pending')
-    ->orderBy('id', 'desc')
-    ->limit(1)
-    ->first();
-
+        $cmd = Command::where('device_id', $device_id)
+            ->where('status', 'pending')
+            ->orderBy('id', 'desc')
+            ->first();
 
         if (!$cmd) {
             return response()->json([
@@ -52,7 +50,6 @@ public function getCommand($device_id)
             ]);
         }
 
-        // update pakai query langsung (lebih aman di IoT)
         Command::where('id', $cmd->id)
             ->update(['status' => 'done']);
 
@@ -61,13 +58,16 @@ public function getCommand($device_id)
         ]);
 
     } catch (\Exception $e) {
-        \Log::error('GET COMMAND ERROR: ' . $e->getMessage());
+
+        \Log::error("GET COMMAND ERROR: " . $e->getMessage());
 
         return response()->json([
-            'error' => 'server error'
+            'command' => null,
+            'error' => 'internal error'
         ], 500);
     }
 }
+
 
 
 }
