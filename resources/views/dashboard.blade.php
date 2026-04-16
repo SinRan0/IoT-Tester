@@ -120,6 +120,7 @@ function nyalakanLED() {
         },
         body: JSON.stringify({
             device_id: 'esp32_1'
+            command: 'LED_ON'
         })
     })
     .then(res => res.json())
