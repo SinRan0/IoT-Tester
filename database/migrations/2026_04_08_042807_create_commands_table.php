@@ -15,6 +15,7 @@ public function up(): void
         $table->id();
         $table->string('device_id'); // ID ESP32
         $table->string('command');   // ON / OFF
+        $table->string('status');
         $table->timestamps();
     });
 }
