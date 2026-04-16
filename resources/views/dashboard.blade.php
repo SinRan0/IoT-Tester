@@ -123,13 +123,19 @@ window.nyalakanLED = function () {
             command: 'LED_ON'
         })
     })
-    .then(res => res.json())
-    .then(data => {
+    .then(async (res) => {
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw data;
+        }
+
         alert("LED berhasil dikirim 🔥");
+        console.log("SUCCESS:", data);
     })
     .catch(err => {
-        console.log(err);
-        alert("Gagal kirim command");
+        console.log("ERROR:", err);
+        alert("Gagal kirim command ❌");
     });
 }
 </script>

@@ -11,24 +11,29 @@ class CommandController extends Controller
     // kirim command dari web
 public function store(Request $request)
 {
-    \Log::info('Command request:', $request->all());
-    
     try {
-        Command::create([
+        \Log::info('REQUEST:', $request->all());
+
+        $cmd = Command::create([
             'device_id' => $request->device_id,
-            'command' => 'LED_ON',
+            'command' => $request->command,
             'status' => 'pending'
         ]);
 
-        return response()->json(['message' => 'Command sent']);
-        
-    } catch (\Exception $e) {
-        \Log::error('Command error: ' . $e->getMessage());
-        return response()->json(['error' => $e->getMessage()], 500);
-    }
-}
+        return response()->json([
+            'message' => 'success',
+            'data' => $cmd
+        ]);
 
-    
+    } catch (\Exception $e) {
+
+        \Log::error('COMMAND ERROR: ' . $e->getMessage());
+
+        return response()->json([
+            'error' => $e->getMessage()
+        ], 500);
+    }
+} 
 
     // diambil ESP32
 public function getCommand($device_id)
