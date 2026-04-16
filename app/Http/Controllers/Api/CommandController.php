@@ -34,10 +34,12 @@ public function store(Request $request)
 public function getCommand($device_id)
 {
     try {
-        $cmd = Command::where('device_id', $device_id)
-            ->where('status', 'pending')
-            ->latest('id')
-            ->first();
+    $cmd = Command::where('device_id', $device_id)
+    ->where('status', 'pending')
+    ->orderBy('id', 'desc')
+    ->limit(1)
+    ->first();
+
 
         if (!$cmd) {
             return response()->json([
