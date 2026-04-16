@@ -1,16 +1,25 @@
 #!/bin/bash
+
+echo "🚀 Starting Laravel App..."
+
+# Install dependencies
+echo "📦 Installing dependencies..."
 composer install --no-dev --optimize-autoloader
-composer dump-autoload
+
+# Clear cache
+echo "🧹 Clearing cache..."
 php artisan optimize:clear
-php artisan config:clear
-php artisan route:clear
 
-echo "Waiting for MySQL..."
-until php artisan migrate --force; do
-  echo "Retrying in 3 seconds..."
-  sleep 3
-done
+# Cache config (optional tapi bagus di production)
+php artisan config:cache
+php artisan route:cache
 
-php artisan db:seed --force
+# Run migration (safe mode)
+echo "🗄️ Running migrations..."
+php artisan migrate --force
 
+echo "✅ Setup completed"
+
+# Start server
+echo "🌐 Starting server..."
 php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
