@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Waiting for MySQL..."
-until php artisan migrate --force 2>/dev/null; do
+until php artisan migrate --force; do
   echo "Retrying in 3 seconds..."
   sleep 3
 done
