@@ -33,22 +33,34 @@ public function store(Request $request)
     // diambil ESP32
 public function getCommand($device_id)
 {
-    $cmd = Command::where('device_id', $device_id)
-        ->where('status', 'pending')
-        ->latest('id')
-        ->first();
+    try {
+        $cmd = Command::where('device_id', $device_id)
+            ->where('status', 'pending')
+            ->latest('id')
+            ->first();
 
-    if (!$cmd) {
+        if (!$cmd) {
+            return response()->json([
+                'command' => null
+            ]);
+        }
+
+        // update pakai query langsung (lebih aman di IoT)
+        Command::where('id', $cmd->id)
+            ->update(['status' => 'done']);
+
         return response()->json([
-            'command' => null
+            'command' => $cmd->command
         ]);
+
+    } catch (\Exception $e) {
+        \Log::error('GET COMMAND ERROR: ' . $e->getMessage());
+
+        return response()->json([
+            'error' => 'server error'
+        ], 500);
     }
-
-    $cmd->update(['status' => 'done']);
-
-    return response()->json([
-        'command' => $cmd->command
-    ]);
 }
+
 
 }
