@@ -112,7 +112,7 @@ body {
 
 <script>
 function nyalakanLED() {
-    fetch('https://iot-tester-production.up.railway.app/api/command/esp32_1', {
+    fetch('/api/command', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
