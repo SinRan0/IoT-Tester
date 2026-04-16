@@ -31,24 +31,24 @@ public function store(Request $request)
     
 
     // diambil ESP32
-    public function getCommand($device_id)
-    {
-        $cmd = Command::where('device_id', $device_id)
-            ->where('status', 'pending')
-            ->latest()
-            ->first();
+public function getCommand($device_id)
+{
+    $cmd = Command::where('device_id', $device_id)
+        ->where('status', 'pending')
+        ->latest('id')
+        ->first();
 
-        if ($cmd) {
-            $cmd->status = 'done';
-            $cmd->save();
-
-            return response()->json([
-                'command' => $cmd->command
-            ]);
-        }
-
+    if (!$cmd) {
         return response()->json([
             'command' => null
         ]);
     }
+
+    $cmd->update(['status' => 'done']);
+
+    return response()->json([
+        'command' => $cmd->command
+    ]);
+}
+
 }
