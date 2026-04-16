@@ -9,32 +9,30 @@ use Illuminate\Support\Facades\DB;
 
 class CommandController extends Controller
 {
-    // kirim command dari web
-    public function store(Request $request)
-    {
-        try {
-            \Log::info('REQUEST:', $request->all());
 
-            $cmd = Command::create([
-                'device_id' => $request->device_id,
-                'command' => $request->command,
-                'status' => 'pending'
-            ]);
+public function store(Request $request)
+{
+    try {
+        // Validasi input
+        $request->validate([
+            'device_id' => 'required',
+            'command' => 'required|in:LED_ON,LED_OFF', // Memastikan hanya ON/OFF yang masuk
+        ]);
 
-            return response()->json([
-                'message' => 'success',
-                'data' => $cmd
-            ]);
+        $cmd = Command::create([
+            'device_id' => $request->device_id,
+            'command' => $request->command,
+            'status' => 'pending'
+        ]);
 
-        } catch (\Exception $e) {
-
-            \Log::error('COMMAND ERROR: ' . $e->getMessage());
-
-            return response()->json([
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json([
+            'message' => 'Command ' . $request->command . ' sent!',
+            'data' => $cmd
+        ]);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
     }
+}
 
     // diambil ESP32
     public function getCommand($device_id)
