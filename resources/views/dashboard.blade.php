@@ -112,7 +112,7 @@ body {
 
 <script>
 function nyalakanLED() {
-    fetch('/api/command', {
+    fetch('https://iot-tester-production.up.railway.app/api/command', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
