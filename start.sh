@@ -1,4 +1,9 @@
 #!/bin/bash
+composer install --no-dev --optimize-autoloader
+composer dump-autoload
+php artisan optimize:clear
+php artisan config:clear
+php artisan route:clear
 
 echo "Waiting for MySQL..."
 until php artisan migrate --force; do
