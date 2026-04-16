@@ -1,3 +1,5 @@
+<?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -18,23 +20,25 @@ class CommandController extends Controller
         return response()->json(['message' => 'Command sent']);
     }
 
+    // diambil ESP32
     public function getCommand($device_id)
-{
-    $cmd = Command::where('device_id', $device_id)
-        ->where('status', 'pending')
-        ->latest()
-        ->first();
+    {
+        $cmd = Command::where('device_id', $device_id)
+            ->where('status', 'pending')
+            ->latest()
+            ->first();
 
-    if ($cmd) {
-        $cmd->status = 'done';
-        $cmd->save();
+        if ($cmd) {
+            $cmd->status = 'done';
+            $cmd->save();
+
+            return response()->json([
+                'command' => $cmd->command
+            ]);
+        }
 
         return response()->json([
-            'command' => $cmd->command
+            'command' => null
         ]);
     }
-
-    return response()->json([
-        'command' => null
-    ]);
 }
