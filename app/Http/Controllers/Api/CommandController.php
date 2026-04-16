@@ -68,6 +68,9 @@ public function getCommand($device_id)
     }
 }
 
-
+public function test()
+{
+    dd(DB::connection()->getDatabaseName());
+}
 
 }
