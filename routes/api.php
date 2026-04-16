@@ -11,3 +11,10 @@ Route::get('/sensor/latest', [SensorController::class, 'latest']);
 // COMMAND
 Route::post('/command', [CommandController::class, 'store']);
 Route::get('/command/{device_id}', [CommandController::class, 'getCommand']);
+
+Route::get('/debug-db', function () {
+    return [
+        'db' => DB::connection()->getDatabaseName(),
+        'tables' => DB::select('SHOW TABLES')
+    ];
+});
