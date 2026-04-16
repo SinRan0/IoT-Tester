@@ -111,25 +111,25 @@ body {
 </div>
 
 <script>
-function nyalakanLED() {
+window.nyalakanLED = function () {
     fetch('https://iot-tester-production.up.railway.app/api/command', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            'Accept': 'application/json'
         },
         body: JSON.stringify({
-            device_id: 'esp32_1'
+            device_id: 'esp32_1',
             command: 'LED_ON'
         })
     })
     .then(res => res.json())
     .then(data => {
-        alert("LED berhasil dinyalakan 🔥");
+        alert("LED berhasil dikirim 🔥");
     })
     .catch(err => {
-        alert("Gagal kirim command");
         console.log(err);
+        alert("Gagal kirim command");
     });
 }
 </script>
