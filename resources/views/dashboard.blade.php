@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <title>Dashboard IoT</title>
 
-<meta http-equiv="refresh" content="5"> <!-- auto refresh 5 detik -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<meta http-equiv="refresh" content="5">
 
 <style>
 body {
@@ -53,6 +54,21 @@ body {
     opacity: 0.7;
 }
 
+.btn {
+    margin-top: 40px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    background: #22c55e;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #16a34a;
+}
+
 .time {
     margin-top: 30px;
     text-align: center;
@@ -83,13 +99,10 @@ body {
         </div>
     </div>
 
-    <div style="text-align:center; margin-top:40px;">
-
-    <button onclick="nyalakanLED()">Nyalakan LED</button>
-    </button>
-
 </div>
 
+<div style="text-align:center;">
+    <button class="btn" onclick="nyalakanLED()">Nyalakan LED 💡</button>
 </div>
 
 <div class="time">
@@ -102,7 +115,8 @@ function nyalakanLED() {
     fetch('http://192.168.0.113:8000/api/command', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
         },
         body: JSON.stringify({
             device_id: 'esp32_1'
@@ -110,7 +124,7 @@ function nyalakanLED() {
     })
     .then(res => res.json())
     .then(data => {
-        alert("LED berhasil dikirim!");
+        alert("LED berhasil dinyalakan 🔥");
     })
     .catch(err => {
         alert("Gagal kirim command");

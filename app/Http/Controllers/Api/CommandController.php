@@ -18,25 +18,23 @@ class CommandController extends Controller
         return response()->json(['message' => 'Command sent']);
     }
 
-    // diambil ESP32
     public function getCommand($device_id)
-    {
-        $cmd = Command::where('device_id', $device_id)
-            ->where('status', 'pending')
-            ->latest()
-            ->first();
+{
+    $cmd = Command::where('device_id', $device_id)
+        ->where('status', 'pending')
+        ->latest()
+        ->first();
 
-        if ($cmd) {
-            $cmd->status = 'done';
-            $cmd->save();
-
-            return response()->json([
-                'command' => $cmd->command
-            ]);
-        }
+    if ($cmd) {
+        $cmd->status = 'done';
+        $cmd->save();
 
         return response()->json([
-            'command' => null
+            'command' => $cmd->command
         ]);
     }
+
+    return response()->json([
+        'command' => null
+    ]);
 }
