@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -12,6 +14,14 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
+
+// AUTO LOGIN (sekali klik)
+Route::post('/auto-login', function () {
+    $user = User::first();
+    Auth::login($user);
+
+    return redirect()->route('dashboard');
+})->name('auto.login');
 
 // profile
 Route::middleware('auth')->group(function () {
