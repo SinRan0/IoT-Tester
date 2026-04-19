@@ -10,17 +10,19 @@ class SensorController extends Controller
 {
     public function store(Request $request)
     {
-        $data = SensorData::create([
-            'device_id' => $request->device_id,
-            'temperature' => $request->temperature,
-            'humidity' => $request->humidity
-        ]);
+    $data = SensorData::create([
+        'device_id' => $request->device_id,
+        'temperature' => $request->temperature,
+        'humidity' => $request->humidity,
+        'soil_moisture' => $request->soil_moisture // ← tambahin ini
+    ]);
 
-        return response()->json([
-            'message' => 'Data berhasil disimpan',
-            'data' => $data
-        ]);
+    return response()->json([
+        'message' => 'Data berhasil disimpan',
+        'data' => $data
+    ]);
     }
+
     public function latest()
     {
     return response()->json(

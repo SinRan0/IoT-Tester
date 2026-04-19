@@ -9,6 +9,7 @@ class SensorData extends Model
     protected $fillable = [
     'device_id',
     'temperature',
-    'humidity'
+    'humidity',
+    'soil_moisture'
   ];
 }
