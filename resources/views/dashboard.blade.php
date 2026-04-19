@@ -36,13 +36,13 @@
     <!-- SUHU -->
     <div class="card">
         <div class="label">Suhu</div>
-        <div class="value">{{ $data->temperature ?? '0' }}°C</div>
+        <div class="value">{{ $data->temperature ?? 0 }}°C</div>
     </div>
 
     <!-- KELEMBAPAN UDARA -->
     <div class="card">
         <div class="label">Kelembapan</div>
-        <div class="value">{{ $data->humidity ?? '0' }}%</div>
+        <div class="value">{{ $data->humidity ?? 0 }}%</div>
     </div>
 
     <!-- SOIL MOISTURE (%) -->
@@ -73,12 +73,12 @@
 
 </div>
 
-<!-- CONTROL LED (TIDAK DIUBAH) -->
+<!-- CONTROL POMPA -->
 <div class="control-section">
-    <div class="label">Remote Control LED</div>
+    <div class="label">Kontrol Pompa Air</div>
     <div class="btn-group">
-        <button class="btn btn-on" onclick="sendLedCommand('LED_ON')">NYALAKAN 💡</button>
-        <button class="btn btn-off" onclick="sendLedCommand('LED_OFF')">MATIKAN 🌑</button>
+        <button class="btn btn-on" onclick="sendPumpCommand('PUMP_ON')">NYALAKAN 💧</button>
+        <button class="btn btn-off" onclick="sendPumpCommand('PUMP_OFF')">MATIKAN 🛑</button>
     </div>
 </div>
 
@@ -87,7 +87,7 @@
 </div>
 
 <script>
-function sendLedCommand(cmd) {
+function sendPumpCommand(cmd) {
     const url = 'https://iot-tester-production.up.railway.app/api/command';
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
