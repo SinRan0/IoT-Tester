@@ -47,7 +47,7 @@
 </head>
 <body>
 
-<div class="header">🌱 SMART AGRO MONITORING</div>
+<div class="header">MONITORING IOT KIPAS</div>
 
 <div class="container">
     <div class="card">
@@ -74,7 +74,7 @@
     </div>
 
     <div class="card">
-        <div class="label">Status Pompa</div>
+        <div class="label">Status Kipas</div>
         <div class="value" style="font-size: 20px; margin-top: 15px;">
             @if(($lastCommand->command ?? '') == 'PUMP_ON')
                 <span class="status-badge status-active">PUMPING... 🌊</span>
