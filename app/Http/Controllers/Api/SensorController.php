@@ -14,7 +14,8 @@ class SensorController extends Controller
         'device_id' => $request->device_id,
         'temperature' => $request->temperature,
         'humidity' => $request->humidity,
-        'soil_moisture' => $request->soil_moisture // ← tambahin ini
+        'soil_moisture' => $request->soil_moisture,
+        'pump_status' => $request->pump_status 
     ]);
 
     return response()->json([

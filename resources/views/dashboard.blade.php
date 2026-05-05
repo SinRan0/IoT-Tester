@@ -76,7 +76,7 @@
     <div class="card">
         <div class="label">Status Pompa</div>
         <div class="value" style="font-size: 20px; margin-top: 15px;">
-            @if(($lastCommand->command ?? '') == 'PUMP_ON')
+            @if(($data->pump_status ?? '') == 'ON')
                 <span class="status-badge status-active">PUMPING... 🌊</span>
             @else
                 <span class="status-badge status-inactive">STANDBY 🛑</span>
