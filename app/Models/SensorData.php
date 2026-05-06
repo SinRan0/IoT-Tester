@@ -10,6 +10,7 @@ class SensorData extends Model
     'device_id',
     'temperature',
     'humidity',
-    'soil_moisture'
+    'soil_moisture',
+    'pump_status'
   ];
 }
